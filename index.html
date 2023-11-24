@@ -1,52 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Countries</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countries</title>
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-	<!-- SITE-HEADER -->
-	<header class="header">
-		<div class="container header__container">
-			<h1 class="header__heading">Where in the world?</h1>
-			<div class="header__dark-mode-wrapper">
-				<img class="dark-mode-img" src="./img/darkMode.svg" alt="moon" >
-				<span class="dark-mode-txt">Dark Mode</span>
-			</div>
-		</div>
-	</header>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- SITE-HEADER -->
+    <header class="header">
+      <div class="container header__container">
+        <h1 class="header__heading">Where in the world?</h1>
+        <div class="header__dark-mode-wrapper">
+          <img class="dark-mode-img" src="./img/darkMode.svg" alt="moon" />
+          <span class="dark-mode-txt">Dark Mode</span>
+        </div>
+      </div>
+    </header>
 
-	<main class="site-main">
-		<!-- SITE-SEARCH-SECTION -->
-		<section class="section-search container">		
-				<form class="search__form" action="#" method="get" >
-					<div class="search__input-inner-wrapper">
-						<img class="search-loop-img" src="./img/search-loop.svg" alt="loop in the search countries">
-						<input class="search__input-country" type="text" name="search-country" placeholder="Search for a country…"   >
-					</div>
+    <main class="site-main">
+      <!-- SITE-SEARCH-SECTION -->
+      <section class="section-search">
+        <div class="container">
+          <form class="search__form" action="#" method="get">
+            <div class="search__input-inner-wrapper">
+              <img
+                class="search-loop-img"
+                src="./img/search-loop.svg"
+                alt="loop in the search countries"
+              />
+              <input
+                class="search__input-country"
+                type="text"
+                name="search-country"
+                placeholder="Search for a country…"
+              />
+            </div>
 
-					<div class="form__select-inner">
-						<select class="search__select" name="country">
-							<option value="" disabled selected>Filter by Region</option>
-							<option value="usa">USA</option>
-							<option value="canada">Canada</option>
-							<option value="uk">UK</option>
-							<option value="australia">Australia</option>
-						  </select>
-						  <button class="search__btn" type="submit">go</button>
-					</div>
+            <div class="form__select-inner">
+              <select class="search__select" name="country">
+                <option value="" disabled selected>Filter by Region</option>
+                <option value="usa">USA</option>
+                <option value="canada">Canada</option>
+                <option value="uk">UK</option>
+                <option value="australia">Australia</option>
+              </select>
+			  
+              <button class="search__btn" type="submit">go</button>
+            </div>
+          </form>
+        </div>
+      </section>
 
-				</form>
-		</section>
-	</main>
+      <!-- COUNTRIES SECTION  -->
+      <section class="section-countries">
+        <div class="container">
+          <div class="countries__wrapper"></div>
+        </div>
+      </section>
+    </main>
 
+    <template class="template">
+      <div class="card">
+        <img
+          class="card__img"
+          src="https://picsum.photos/267/160"
+          alt="country flag"
+        />
+        <div class="card__content">
+          <h2 class="content__heading">Germany</h2>
 
-  <script src="js/main.js"></script>
-</body>
+          <div class="content__inner">
+            <div class="card__info">
+              <strong>Population:</strong>
+              <span class="card__info__extra">81,770,900</span>
+            </div>
+            <div class="card__info">
+              <strong>Region:</strong>
+              <span class="card__info__extra">Europe</span>
+            </div>
+            <div class="card__info">
+              <strong>Capital:</strong>
+              <span class="card__info__extra">Berlin</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <script src="js/main.js"></script>
+  </body>
 </html>
