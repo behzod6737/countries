@@ -189,4 +189,20 @@ select:-webkit-autofill:focus {
   box-shadow: var(--box-shadow)
 }
 
+.form__select-inner{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
 
+.search__btn{
+	padding: 17px 20px;
+	width: fit-content;
+	font-size: 18px;
+	font-weight: bold;
+	background-color: transparent;
+	border: none;
+	box-shadow: var(--box-shadow);
+	cursor: pointer;
+}
