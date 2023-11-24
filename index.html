@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+	<!-- SITE-HEADER -->
 	<header class="header">
 		<div class="container header__container">
 			<h1 class="header__heading">Where in the world?</h1>
@@ -20,6 +21,27 @@
 			</div>
 		</div>
 	</header>
+
+	<main class="site-main">
+		<!-- SITE-SEARCH-SECTION -->
+		<section class="section-search container">		
+				<form class="search__form" action="#" method="get" >
+					<div class="search__input-inner-wrapper">
+						<img class="search-loop-img" src="./img/search-loop.svg" alt="loop in the search countries">
+						<input class="search__input-country" type="text" name="search-country" placeholder="Search for a country…"   >
+					</div>
+
+					<select name="country">
+						<option value="" disabled selected>Filter by Region</option>
+						<option value="usa">USA</option>
+						<option value="canada">Canada</option>
+						<option value="uk">UK</option>
+						<option value="australia">Australia</option>
+					  </select>
+
+				</form>
+		</section>
+	</main>
 
 
   <script src="js/main.js"></script>
