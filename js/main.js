@@ -34,7 +34,7 @@ const elFormSelectBtn = getElement('.search__btn')
 function renderCountry(countries,goingEl){
 	goingEl.innerHTML = null
 	const newFragment = document.createDocumentFragment()
-
+   
 	countries.forEach(country => {
 		const template = elTemplate.cloneNode(true)
 		getElement('.card__img',template).src = country.flags.png;
@@ -92,4 +92,9 @@ elForm.addEventListener('submit', (e) => {
 
 darkModeBtn.addEventListener('click' , () => {
 	document.body.classList.toggle('body-white-mode')
+	if (!document.body.matches('.body-white-mode')) {
+		darkModeBtn.textContent = 'Light mode'
+	}else if(document.body.matches('.body-white-mode')){
+		darkModeBtn.textContent = 'dark mode'
+	}
 })
