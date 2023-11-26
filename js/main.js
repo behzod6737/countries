@@ -1,24 +1,10 @@
-let countries = []
-
-// fetching data 
-
-fetch('https://restcountries.com/v3.1/all')
-.then(response => response.json())
-.then(data => {
-	countries = data.slice(100,116);
-	renderCountry(countries,countryWrapper)
-	renderSelect(countries,elFormSelect)
-})
-.catch(error => console.log(error))
-
-
-
 // utils
 
 const getElement = (element, parentElement = document) => parentElement.querySelector(element)
 const createNewElement = (element) => document.createElement(element)
 
 // Variables
+const CONFIG = 'https://restcountries.com/v3.1/'
 const countryWrapper = getElement('.countries__wrapper')
 const elTemplate = getElement('.template').content
 const darkModeBtn = getElement('.header__button')
@@ -28,11 +14,34 @@ const elFormSearch= getElement('.search__input-country')
 const elFormSelect = getElement('.search__select')
 const elFormSelectBtn = getElement('.search__btn')
 
+// fetching data  with reusable  function
+
+function makeRequest(url,successFn, emptyFn) {
+	countryWrapper.innerHTML = '<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>'
+	fetch(url)
+	.then(response => response.json())
+	.then(data => {
+		if (data.length > 0 )  successFn(data)
+		else emptyFn()
+	})
+}
+
+function emptyFn() {
+	countryWrapper.innerHTML = '<p style="text-align: center; font-size: 20px; font-weight: bold; color: red;">country not found :( </p>'
+}
+
+;(function getAllCountries() {
+	makeRequest(CONFIG + 'all',renderCountry,emptyFn)
+})()
+
+;(function getAllRegions() {
+	makeRequest(CONFIG + 'all/',renderSelect,emptyFn)
+})()
 
 // ! render the country card
 
-function renderCountry(countries,goingEl){
-	goingEl.innerHTML = null
+function renderCountry(countries){
+	countryWrapper.innerHTML = null
 	const newFragment = document.createDocumentFragment()
    
 	countries.forEach(country => {
@@ -45,47 +54,52 @@ function renderCountry(countries,goingEl){
 		newFragment.append(template)
 	})
 
-	goingEl.append(newFragment)
+	countryWrapper.append(newFragment)
 }
 
 // ! render the select region
 
-function renderSelect(countries,goingEl) {
- goingEl.innerHTML = null
- goingEl.innerHTML =  '<option value="All">All</option>'
+function renderSelect(countries) {
+ elFormSelect.innerHTML = null
+ elFormSelect.innerHTML =  '<option value="All">All</option>'
  const selectFragment = document.createDocumentFragment()
- let filteredRegion = []
-	
-	for (const country of countries) {
-		if(filteredRegion.includes(country.region)){
-			continue
-		}
-		filteredRegion.push(country.region)
+let newRegions = []
+
+for (const country of countries) {
+	if(newRegions.includes(country.region)){
+		continue
 	}
+	else newRegions.push(country.region)
+}
 	
- filteredRegion.forEach(region => {
+ newRegions.forEach(region => {
 	const option = createNewElement('option')
-	option.textContent = region
+	option.textContent = region 
 	option.className = 'select__option'
 	option.value = region
 	selectFragment.append(option)
  })
 
- goingEl.append(selectFragment)
+ elFormSelect.append(selectFragment)
 }
 
 
 // ! dom events
 
-elFormSearch.addEventListener('input', () =>{
-	renderCountry(countries.filter(country => country.name.common.toLowerCase().includes(elFormSearch.value.toLowerCase())),countryWrapper)
-})
+if (elFormSearch) {
+	elFormSearch.addEventListener('input', () =>{
+		if (elFormSearch.value.trim()) {
+			makeRequest(CONFIG + 'name/' + elFormSearch.value.toLowerCase() , renderCountry , emptyFn)
+		}else makeRequest(CONFIG + 'all',renderCountry,emptyFn)
+	})
+}
 
 elForm.addEventListener('submit', (e) => {
 	e.preventDefault()
 
-	if(elFormSelect.value == 'All') return renderCountry(countries,countryWrapper)
-	renderCountry(countries.filter(country => country.region.includes(elFormSelect.value) ),countryWrapper)
+	if(elFormSelect.value == 'All') return makeRequest(CONFIG + 'all',renderCountry,emptyFn)
+	else  makeRequest(CONFIG + 'region/' + elFormSelect.value.toLowerCase(),renderCountry,emptyFn)
+	
 })
 
 // ! dark mode dom event
